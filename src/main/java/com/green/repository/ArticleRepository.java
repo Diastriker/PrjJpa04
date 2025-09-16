@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.green.dto.Article;
 import com.green.dto.ArticleDTO;
+import com.green.dto.Comments;
 
 @Repository
 public interface ArticleRepository
@@ -21,20 +22,4 @@ public interface ArticleRepository
 	
 	@Transactional
 	void deleteByTitle(String string);
-	/*
-	switch (fruit) {
-		case "사과" :
-			System.out.println("dd");
-			break;
-		case "포도" : 
-			System.out.println(ㄴㄴ);
-			break;
-		default :
-			System.out.println("없음");
-			break;
-	}
-	*/
-
-	
 }
-

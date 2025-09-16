@@ -5,7 +5,9 @@ package com.green.dto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import lombok.Builder;
 import lombok.Data;
 
@@ -15,10 +17,17 @@ import lombok.Data;
 @Entity
 @Builder
 @Data        //@RequiredArgsConstructor - null 못받음
+@SequenceGenerator(
+		name = "ARTICLE_SEQ_GENERATOR",
+		sequenceName= "ARTICLE_SEQ", // create sequence COMMEN-SEQ
+		initialValue = 1, // 초기값
+		allocationSize = 1 // 증가치
+	)
 public class Article {
 	
 	@Id                    // primary key 의미를 갖고있음 @Column 안해도 자동으로 칼럼으로 인식
-	@GeneratedValue        // sequence 
+	@GeneratedValue(strategy = GenerationType.SEQUENCE,
+	generator = "ARTICLE_SEQ_GENERATOR") // 번호 자동 증가       // sequence 
 	private Long id;    // Integer : null 입력가능, int 는 null 못받음
 	
 	@Column                // DB 칼럼 선언 

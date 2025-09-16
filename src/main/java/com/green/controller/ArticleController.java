@@ -14,7 +14,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.green.dto.Article;
 import com.green.dto.ArticleDTO;
+import com.green.dto.Comments;
 import com.green.repository.ArticleRepository;
+import com.green.repository.CommentsRepository;
+import com.green.service.ArticleService;
+import com.green.service.CommentsService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,6 +28,9 @@ public class ArticleController {
 	
 	@Autowired
 	private ArticleRepository articleRepository;
+	
+	@Autowired
+	private CommentsService commentsService;
 	
 	@GetMapping("/article/WriteForm") 
 	public String writeForm(Model model) {
@@ -115,8 +122,13 @@ public class ArticleController {
 		Article article = articleRepository.findById(id).orElse(null);
 		model.addAttribute("article", article);
 		
-		System.out.println("응애 : " + article);
-		return "article/view";
+		// 댓글 처리 추가
+		
+		// 댓글 조회 : article_id
+		List<Comments> commentsList = commentsService.getComments(id);
+		// 조회된 댓글을 model 에 담는다
+		model.addAttribute("commentsList",commentsList);
+		return "article/view"; // mustache
 	}
 	
 	// 삭제
