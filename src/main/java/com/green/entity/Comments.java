@@ -45,7 +45,7 @@ public class Comments {
 	@Column
 	private String nickname;
 	
-	// 외래키 설정
+	// 외래키 설정 - 지금은 PK 가 하나라 자동으로 Article에 있는 id를 참조함
 	@ManyToOne                     // 외레키 다대일 관계
 	@JoinColumn(name="article_id") // 외레키 칼럼
 	private Article article;       // 연결될 entity 객체의 이름

@@ -60,12 +60,12 @@ public class CommentsService {
 		CommentsDTO newDTO = CommentsDTO.createCommentDTO(created);
 		return newDTO;
 	}
-	
+									
+	// 댓글 수정 // id, nickname, body, articleId
 	public CommentsDTO update(CommentsDTO commentsDTO) {
-		
+
 		Article article = articleRepository.findById(commentsDTO.getArticleId()).orElseThrow( () -> new IllegalArgumentException("수정 대상이 없습니다"));
-		
-		Comments comments = Comments.createComment(commentsDTO, article);
+		Comments comments = new Comments(commentsDTO.getId(), commentsDTO.getBody(), commentsDTO.getNickname(), article);
 		comments = commentsRepository.save(comments);
 		CommentsDTO dto = CommentsDTO.createCommentDTO(comments);
 		return dto;

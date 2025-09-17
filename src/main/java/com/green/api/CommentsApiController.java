@@ -51,12 +51,11 @@ public class CommentsApiController {
 		return ResponseEntity.status(HttpStatus.OK).body(created);
 	}
 	*/
-	@PatchMapping(value="/api/comments/{id}")
+	@PatchMapping(value="/api/comments")
 	public ResponseEntity<CommentsDTO> update(
-			@PathVariable("id") Long id,
 			@RequestBody CommentsDTO commentsDTO
 			) {
-		
+		System.out.println("첫 번째 : " + commentsDTO);
 		CommentsDTO updated = commentsService.update(commentsDTO);
 		ResponseEntity<CommentsDTO> result = (updated != null)
 				? ResponseEntity.status(HttpStatus.OK).body(updated)

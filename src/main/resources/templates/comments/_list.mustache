@@ -43,6 +43,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+      
         <form>
         	<input type="hidden" id="update-id"/>
         	<input type="hidden" id="update-article-id"/>
@@ -55,12 +56,13 @@
             <textarea class="form-control" id="update-body"></textarea>
           </div>
         </form>
+        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary"
          id="comment-update-btn">수정</button>
         <button type="button" class="btn btn-secondary"
-         data-bs-dismiss="modal" id="comment-delete-btn">취소</button>
+         data-bs-dismiss="modal" id="cancel">취소</button>
       </div>
     </div>
   </div>
@@ -89,7 +91,7 @@
         를 삭제하시겠습니까?
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Yes</button>
+        <button id="comment-delete-btn" type="button" class="btn btn-primary">Yes</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
       </div>
     </div>
@@ -115,7 +117,7 @@
 		let id 				= btn.dataset.bsId       	  // data-bs-id 내가 만든 속성들
 		let nickname  = btn.dataset.bsNickname    // data-bs-nickname
 		let body		  = btn.dataset.bsBody 			  // data-bs-body
-		let articleId = btn.dataset.bsIdArticleId // data-bs-article-id
+		let articleId = btn.dataset.bsArticleId   // data-bs-article-id
 		
 		// modal창에 출력한다
 	  document.querySelector('#update-article-id').value = articleId
@@ -124,6 +126,12 @@
 		document.querySelector('#update-body').value = body
 		
 	})
+	
+//	const deleteModalEl = document.querySelector('#deleteModal')
+//	deleteModalEl.addEventListener('show.bs.modal', (a) => {
+	//	console.log('ㅋㅋㅋㅋㅋㅋ',a)
+//		let id = a.relatedTarget.dataset.bsId
+	//})
 </script>
 
 <script>
@@ -132,11 +140,11 @@
 	commentUpdateBtnEl.addEventListener('click', (e) => {
 		let comment = {
 				id : document.querySelector('#update-id').value,
-				articleId : document.querySelector('#update-article-id').value,
+				article_id : document.querySelector('#update-article-id').value,
 				nickname : document.querySelector('#update-nickname').value,
 				body : document.querySelector('#update-body').value
 		}
-		let url = '/api/comments' + '/' + comment.id;
+		let url = '/api/comments';
 		let params = {
 				method  : 'PATCH',
 				headers : {"Content-Type":"application/json;charset=UTF-8"},
@@ -154,7 +162,10 @@
 	})
 	
 	// modal 창의 삭제 버튼 클릭 - comment-delete-btn
-	const commentDeleteBtn = document.querySelector('#comment-delete-btn')
+	const commentDeleteBtnEl = document.querySelector('#comment-delete-btn')
+//	commentDeleteBtnEl.addEventListener('click', (e) => {
+//		let url = '/api/comments/'
+//	})
 </script>
 
 
