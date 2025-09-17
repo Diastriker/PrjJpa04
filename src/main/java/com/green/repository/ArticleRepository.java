@@ -6,9 +6,9 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.green.dto.Article;
 import com.green.dto.ArticleDTO;
-import com.green.dto.Comments;
+import com.green.entity.Article;
+import com.green.entity.Comments;
 
 @Repository
 public interface ArticleRepository

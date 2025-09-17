@@ -1,6 +1,7 @@
 package com.green.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.green.entity.Comments;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,4 +32,5 @@ public class CommentsDTO {
 				comments.getBody()
 				);
 	}
+	
 }

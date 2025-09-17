@@ -1,4 +1,6 @@
-package com.green.dto;
+package com.green.entity;
+
+import com.green.dto.CommentsDTO;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,7 +22,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Builder
 @Entity
 @SequenceGenerator(
 	name = "COMMENTS_SEQ_GENERATOR",
@@ -38,7 +39,7 @@ public class Comments {
 //	@Column(name="nick_name", nullable=true, length=255)
 	// Oracle 11g VARCHAR2 최대 4000 -> CLOB
 	// Oracle 12c VARCHAR2 최대 32000 -> 별도 설정 필요
-	@Column
+	@Column(length=255)
 	private String body;
 
 	@Column
@@ -48,4 +49,24 @@ public class Comments {
 	@ManyToOne                     // 외레키 다대일 관계
 	@JoinColumn(name="article_id") // 외레키 칼럼
 	private Article article;       // 연결될 entity 객체의 이름
+	
+	
+	
+	public static Comments createComment(CommentsDTO dto,Article article) {
+		Comments comments = new Comments(
+				null, //dto.getId()
+				dto.getBody(),
+				dto.getNickname(),
+				article
+				);
+		return comments;
+	}
+
+    
+	
+
+
+
 }
+
+
