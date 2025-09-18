@@ -70,7 +70,35 @@ public class CommentsService {
 		CommentsDTO dto = CommentsDTO.createCommentDTO(comments);
 		return dto;
 	}
-}
+	
+	// 쌤거 수정
+	public CommentsDTO patch(CommentsDTO dto) {
+		
+		Comments target = commentsRepository.findById(dto.getId())
+				.orElseThrow( () -> new IllegalArgumentException("수정 대상이 없습니다"));;
+		
+	    // 2. target 의 내용중 수정할 내용을 변경
+		//target : 수정될 댓글
+		// dto : 수정할 입력받은 데이터
+		target.patch(dto);
+		// 3. 수정
+		Comments updated = commentsRepository.save(target);
+		CommentsDTO commentsDTO = CommentsDTO.createCommentDTO(updated);
+		return commentsDTO;
+	}
+	
+	// 댓글 삭제
+	public CommentsDTO delete(Long id) {
+		Comments comments = commentsRepository.findById(id).orElse(null);
+		if(comments != null) {
+			commentsRepository.deleteById(id);
+			CommentsDTO commentsDTO = CommentsDTO.createCommentDTO(comments);
+			return commentsDTO;
+		}
+		return null;
+	}
+	
+} // Service End
 
 
 

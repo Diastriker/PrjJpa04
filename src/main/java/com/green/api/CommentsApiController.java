@@ -3,6 +3,7 @@ package com.green.api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.green.dto.CommentsDTO;
-import com.green.entity.Comments;
 import com.green.service.CommentsService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -51,6 +51,7 @@ public class CommentsApiController {
 		return ResponseEntity.status(HttpStatus.OK).body(created);
 	}
 	*/
+	// 댓글 수정
 	@PatchMapping(value="/api/comments")
 	public ResponseEntity<CommentsDTO> update(
 			@RequestBody CommentsDTO commentsDTO
@@ -59,6 +60,21 @@ public class CommentsApiController {
 		CommentsDTO updated = commentsService.update(commentsDTO);
 		ResponseEntity<CommentsDTO> result = (updated != null)
 				? ResponseEntity.status(HttpStatus.OK).body(updated)
+				: ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		return result;
+	}
+	
+	// 쌤거 수정
+	
+	// 댓글 삭제
+	@DeleteMapping(value="/api/comments/{deleteId}")
+	public ResponseEntity<CommentsDTO> delete(
+			@PathVariable("deleteId") Long id
+			) {
+		
+		CommentsDTO deleted = commentsService.delete(id);
+		ResponseEntity<CommentsDTO> result = (deleted != null)
+				? ResponseEntity.status(HttpStatus.OK).body(deleted)
 				: ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		return result;
 	}
